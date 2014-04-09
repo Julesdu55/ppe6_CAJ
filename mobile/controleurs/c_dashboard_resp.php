@@ -8,6 +8,8 @@ else
 switch($action){
     case 'list':{
         $the_bugs = getAllBugs();
+        $bugs_resp = getBugsForTechnicien($_SESSION['login']['id']);
+        $bugs_resp = $bugs_resp[0];
         $bugs_en_cours = $the_bugs[0];
         $bugs_fermes =  $the_bugs[1];
         $users = getUsersByFunction();
