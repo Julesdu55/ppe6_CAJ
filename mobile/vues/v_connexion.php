@@ -13,24 +13,7 @@
     </head>
 
     <body>
-        <div id="bandeau">
-            <h1>HelpDesk Maison des ligues</h1>
-        </div>
-        <!--  Menu haut-->
-        <ul id="menu">
 
-            <?php
-                if(estConnecter()){
-                    echo '<li><a href="index.php?uc=dash"> Mon tableau de bord </a></li>';
-                if ($_SESSION['login']['fonction'] == "Club" ){
-                    echo '<li><a href="index.php?uc=dash&action=nouveau"> Nouvel incident</a></li>';
-                }
-                    echo '<li><a href="index.php?uc=deconnexion">Se déconnecter</a></li>';
-                }else{
-                    echo '<li><a href="index.php?uc=accueil"> Accueil </a></li>';
-                }
-            ?>
-        </ul>
 
         <div data-role="page">
             <div data-role="header">
@@ -56,6 +39,20 @@
                         <input type="submit" value="Valider" name="valider">
                         <input type="reset" value="Annuler" name="annuler">
                 </form>
+
+                <div class="erreur">
+                    <ul>
+                        <?php
+                        foreach($msgErreurs as $erreur)
+                        {
+                            ?>
+                            <li><?php echo $erreur ?></li>
+                        <?php
+                        }
+                        ?>
+                    </ul>
+                </div>
+
             </div>
             <div data-role="footer" data-position="fixed">
                 <h1>Maison des ligues ©</h1>
@@ -72,18 +69,7 @@
                 Merci.</p>
             </div>
         </div>
-        <div class="erreur">
-            <ul>
-                <?php
-                    foreach($msgErreurs as $erreur)
-                    {
-                ?>
-                <li><?php echo $erreur ?></li>
-                <?php
-                    }
-                ?>
-            </ul>
-        </div>
+
 
     </body>
 
