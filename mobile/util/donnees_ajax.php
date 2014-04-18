@@ -20,6 +20,6 @@ $bug->setResolution($laDate);
 
 $entityManager->flush();
 
-echo json_encode("Affecté");
+echo json_encode("ok");
 
 ?>

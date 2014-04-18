@@ -36,10 +36,10 @@ switch($uc)
                     header("Location:index.php?uc=dash");
                 }else{
                     $msgErreurs[] = "Votre login n'a pas été reconnu par l'application";
-                    include("vues/v_connexion.php");
+                    include("./vues/v_connexion.php");
                 }
             }else{
-                include("vues/v_connexion.php");
+                include("./vues/v_connexion.php");
             }
 
             break;
@@ -62,14 +62,14 @@ switch($uc)
     {
         if (isset($_SESSION['login'])){
             if ($_SESSION['login']['fonction'] == "Responsable" ){
-                include("./controleurs/c_dashboard_resp.php");
+                include("controleurs/c_dashboard_resp.php");
             }else{
                 if ($_SESSION['login']['fonction'] == "Technicien" ){
-                    include("./controleurs/c_dashboard_tech.php");
+                    include("controleurs/c_dashboard_tech.php");
                 }else{
                     if ($_SESSION['login']['fonction'] == "Club" ){
 
-                        include("./controleurs/c_dashboard_club.php");
+                        include("controleurs/c_dashboard_club.php");
                     }
                 }
             }
