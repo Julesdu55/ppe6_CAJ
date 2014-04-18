@@ -18,7 +18,7 @@
 
                 <?php
                 if(estConnecter()){
-                    echo '<p align="right"><img src="../images/deconnexion.png" width="20" height="20"><a href="index.php?uc=deconnexion" align="right"> Deconnexion</a></p>';
+                    echo '<p align="right"><img src="../images/deconnexion.png" width="20" height="20"><a  href="index.php?uc=deconnexion" data-ajax="false"  align="right"> Deconnexion</a></p>';
                 }else{
                     echo '<li><a href="index.php?uc=accueil"> Accueil </a></li>';
                 }
