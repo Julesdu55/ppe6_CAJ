@@ -32,7 +32,7 @@
         }
     ?>
 </ul>
-<div id="liste_tickets">
+<div id="liste_tickets" data-role="collapsible">
     <h2>Tickets en cours</h2>
 <?php
 foreach ($bugs_en_cours as $bug) {
@@ -41,7 +41,7 @@ foreach ($bugs_en_cours as $bug) {
     }else{
         $engineer = "non affecté";
     }
-    echo "<ul>";
+    echo "<ul data-role='listview'>";
     echo "<li><img src='./images/en_cours.png' width='30px' height='30px'/></li>";
     echo "<li>".$bug->getCreated()->format('d.m.Y')."</li>";
     echo "<li><info class='carac'> affecté à :</info> ".$engineer."</li>";
@@ -52,7 +52,7 @@ foreach ($bugs_en_cours as $bug) {
     echo "</li>";
     echo "<li>".$bug->getDescription()."</li>";
     if ($bug->getCapture()!= "")
-        echo "<li><a href='capture/".$bug->getCapture()."'>Capture d'écran</a>";
+        echo "<li><a href='../capture/".$bug->getCapture()."'>Capture d'écran</a>";
     echo "</ul>";
 }
 ?>
