@@ -188,7 +188,6 @@
                         echo "<tr><td><input name='b_affect' id='b_affect_".$Idbug."' type='submit' value='Affecter'></td></tr>";
                     echo "</tr>";
                     echo "</table>";
-                    echo "</div>";
                 }
             ?>
 

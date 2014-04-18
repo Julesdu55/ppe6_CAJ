@@ -137,7 +137,7 @@
 
         echo "<div id='dialog_tech' title='Erreur'>Vous n'avez pas sélectionné de technicien</div>";
         echo "<div id='dialog_date' title='Erreur'>Vous n'avez pas rempli le champ date</div>";
-        echo "<div id='dialog_ok' title='Erreur'>L'enregistrement a bien été pris en compte</div>";
+        echo "<div id='dialog_ok' title='Enregistrement'>L'enregistrement a bien été pris en compte</div>";
 
         echo "</ul>";
     }

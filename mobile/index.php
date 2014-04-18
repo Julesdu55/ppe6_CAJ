@@ -42,6 +42,8 @@ switch($uc)
                 include("./vues/v_connexion.php");
             }
 
+            //if(isset($_POST['']))
+
             break;
         }
     case 'liste_tickets':
