@@ -38,7 +38,11 @@
 <div date-role="content">
 
             <h4>Bienvenue sur votre console de gestion</h4>
+ <?php if (isset ($_GET['cloture'])){
 
+     echo 'Cloturation affectuer';
+ }
+ ?>
     <div data-role="collapsible-set" data-theme="c" data-content-theme="a">
         <div id="liste_tickets">
             <div data-role="collapsible" data-collapsed="true">
@@ -62,7 +66,7 @@
                             echo "- ".$product->getName()." ";
                         }
                         echo "</td>";
-                        //echo "<li>".$bug->getDescription()."</li>";
+
                         echo "</tr>";
                     }
                     ?>
@@ -83,6 +87,7 @@
                         }else{
                             $engineer = "non affecté";
                         }
+
                         echo "<tr>";
                         echo "<td><img src='../images/ferme.png' width='30px' height='30px'/></td>";
                         echo "<td class='colonneid'>".$bug->getId()."</td>";
@@ -122,6 +127,8 @@
         </div>
         <hr/>
         <div id="capture_ticket"></div>
+        <hr/>
+        <div id="cloture_ticket"></div>
     </div>
 
 

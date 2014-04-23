@@ -185,6 +185,7 @@ class Bug
             'description'=> $this->description,
             'resume'=> $this->resume,
             'capture'=> $this->capture,
+            'status'=> $this->status,
         );
     }
 }

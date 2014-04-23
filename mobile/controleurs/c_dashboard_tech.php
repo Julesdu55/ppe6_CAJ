@@ -11,11 +11,13 @@ switch($action){
         $bugs_en_cours = $the_bugs[0];
         $bugs_fermes =  $the_bugs[1];
         $users = getUsersByFunction();
+        $cloture=false;
         include("vues/v_dashboard_techn.php");
         break;
     }
 
     case 'cloture':{
+        $verif=false;
 
         include("vues/v_terminer.php");
         break;
@@ -39,12 +41,14 @@ switch($action){
         $id = $_GET['id'];
         $libelle = $_POST['libelle'];
         if ($libelle==''){
+            $verif=true;
             include("vues/v_terminer.php");
-            echo "Veuillier remplire une description";
+
         }
         else{
             updateAction($id,$libelle);
-           echo '<input type="button" value="fermer" onclick="javascript:parent.opener.location.reload();window.close();">';
+
+            header('Location:index.php?uc=dash&cloture=1');
             break;
         }
         }
