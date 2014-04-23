@@ -154,7 +154,7 @@
                     echo "<h2>Ticket n°".$bug->getId()."</h2>";
                     echo "<table>";
                     if ($bug->getEngineer() != null) {
-                        $engineer = $bug->getEngineer()->getName();
+                        $engineer = $bug->getEngineer()->getName()." ".$bug->getEngineer()->getPrenom();
                     } else {
                         $engineer = "non affecté";
                     }
@@ -218,7 +218,7 @@
                     echo "<h2>Ticket n°".$bug->getId()."</h2>";
                     echo "<table>";
                     if ($bug->getEngineer() != null) {
-                        $engineer = $bug->getEngineer()->getName();
+                        $engineer = $bug->getEngineer()->getName()." ".$bug->getEngineer()->getPrenom();
                     } else {
                         $engineer = "non affecté";
 
