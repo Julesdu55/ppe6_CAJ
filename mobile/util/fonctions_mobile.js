@@ -16,14 +16,14 @@ $(document).ready(function(){
 
         $.ajax({
             type: "POST",
-            url: "../util/c_requetes.php",
+            url: "./util/c_requetes.php",
             dataType: "json",
             data: "action=infos_ticket&data="+identifiant,
             success: function(data){
                 $("tr[name=une_ligne]").remove();
                 $("#descri_ticket").html(data['description']);
                 $("#solution_ticket").html(data['resume']);
-
+                $("#capture_ticket").html('<img src="../capture/'+data['capture']+'" width="400" height="300"/>');
                 // on active le clic sur le lien invisible pour déclencher le dialog
                 $('#lnkDialog').click();
                 // Autre façon de changer la page à la volée

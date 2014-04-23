@@ -1,7 +1,8 @@
-<!doctype html>
 <html>
 <head>
     <title>jQuery Mobile</title>
+    <meta charset="utf-8">
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="./lib/jquery.mobile-1.4.2.min.css">
@@ -9,113 +10,120 @@
     <script src="./lib/jquery.mobile-1.4.2.min.js"></script>
     <script src="./util/fonctions_mobile.js"></script>
 </head>
+<!doctype html>
+
+
 <body>
-<div id="bandeau">
-<!-- Images En-t�te -->
-    <h1>HelpDesk Maison des ligues</h1>
-</div>
-<!--  Menu haut-->
-<ul id="menu">
+<a id='lnkDialog' href="#ticket_dialog" data-transition="flip" style='display:none;'></a>
 
+<div data-role="page">
+    <div id="bandeau">
+        <ul id="menu">
 
-    <?php
-        if(estConnecter()){
-            echo '<li><a href="index.php?uc=dash"> Mon tableau de bord </a></li>';
-            //echo '<li><a href="index.php?uc=liste_tickets"> Incidents déclarés </a></li>';
-            if ($_SESSION['login']['fonction'] == "Club" ){
-
-                echo '<li><a href="index.php?uc=dash&action=nouveau"> Nouvel incident</a></li>';
+            <?php
+            if(estConnecter()){
+                echo '<p align="right"><img src="../images/deconnexion.png" width="20" height="20"><a  href="index.php?uc=deconnexion" data-ajax="false"  align="right"> Deconnexion</a></p>';
+            }else{
+                echo '<li><a href="index.php?uc=accueil"> Accueil </a></li>';
             }
-            echo '<li><a href="index.php?uc=deconnexion">Se déconnecter</a></li>';
-        }else{
-            echo '<li><a href="index.php?uc=accueil"> Accueil </a></li>';
-        }
-    ?>
-</ul>
-<div id="liste_tickets">
-    <h2>Vos bug en attente de resolution</h2>
-    <?php
-    foreach ($bugs_en_cours as $bug) {
-        if ($bug->getEngineer() != null){
-            $engineer = $bug->getEngineer()->getName();
-        }else{
-            $engineer = "non affecté";
-        }
-        $datejour=date_create(date('y-m-d'));
-        $datebug=date_create($bug->getResolution()->format('y-m-d'));
-        $d = date_diff($datebug,$datejour);
-
-       echo "<ul>";
-        echo "<li>";
-        if ($d->format('%a jours')<=0){
-
-            echo "<img src='./images/error.png' width='30px' height='30px'/></li>";
-        }
-        else{
-            echo "<img src='./images/en_cours.png' width='30px' height='30px'/></li>";
-        }
-        echo "<li>".$bug->getCreated()->format('d.m.Y')."</li>";
-
-        echo "<li> Produit(s) : ";
-        foreach ($bug->getProducts() as $product) {
-            echo "- ".$product->getName()." ";
-        }
-        echo "</li>";
-
-        //$date=abs($bug->getResolution()->format('d-m-y')-date('d-m-y'));
+            ?>
+        </ul>
+        <center><img src="../images/accueil.png" width="100" height="100"></center>
+        <h1><center>HelpDesk Maison des ligues</h1></center>
+        <center>Bienvenue sur l'application des gestions d'incidents</center>
+        </br>
 
 
-        echo "<li> A réaliser Avant  ".$d->format('%a jours')."</li>";
-        echo "<li> <a href='http://127.0.0.1/ppe5_CAJ/index.php?uc=dash' onClick=ouvrirFenetre('".$bug->getid()."','description');> Description </a></li>";
-        echo "    &nbsp;&nbsp;&nbsp;";
-        echo "<li> <a href='http://127.0.0.1/ppe5_CAJ/index.php?uc=dash' onClick=ouvrirFenetre('".$bug->getid()."','cloture');> Terminer </a></li>";
-        echo "</ul>";
-    }
-    ?>
-    <script language="javascript">
-        function ouvrirFenetre(id,action){
+    </div>
+<div date-role="content">
+
+            <h4>Bienvenue sur votre console de gestion</h4>
+
+    <div data-role="collapsible-set" data-theme="c" data-content-theme="a">
+        <div id="liste_tickets">
+            <div data-role="collapsible" data-collapsed="true">
+                <h3>Tickets en cours</h3>
+                <p>
+                <table><tr><th></th><th>Numéro</th><th>Date</th><th>Technicien</th><th>Produits concernés</th></tr>
+                    <?php
+                    foreach ($bugs_en_cours as $bug) {
+                        if ($bug->getEngineer() != null){
+                            $engineer = $bug->getEngineer()->getName();
+                        }else{
+                            $engineer = "non affecté";
+                        }
+                        echo "<tr>";
+                        echo "<td><img src='../images/en_cours.png' width='30px' height='30px'/></td>";
+                        echo "<td class='colonneid'>".$bug->getId()."</td>";
+                        echo "<td class='colonnedate'>".$bug->getCreated()->format('d.m.Y')."</td>";
+                        echo "<td class='colonnetech'>".$engineer."</td>";
+                        echo "<td class='colonneprod'>";
+                        foreach ($bug->getProducts() as $product) {
+                            echo "- ".$product->getName()." ";
+                        }
+                        echo "</td>";
+                        //echo "<li>".$bug->getDescription()."</li>";
+                        echo "</tr>";
+                    }
+                    ?>
 
 
-            window.open("http://127.0.0.1/ppe5_CAJ/index.php?uc=dash&action="+action+"&id="+id, "popup", "toolbar=0, location=0, directories=0, status=0, scrollbars=0, resizable=0, copyhistory=0, width=500, height=350,screenX=200,screenY=200");
+                </table>
+                </p>
+            </div>
 
-        }
-    </script>
+            <div data-role="collapsible">
+                <h3>Tickets cloturés</h3>
+                <p>
+                <table><tr><th></th><th>Numéro</th><th>Date</th><th>Technicien</th><th>Produits concernés</th></tr>
+                    <?php
+                    foreach ($bugs_fermes as $bug) {
+                        if ($bug->getEngineer() != null){
+                            $engineer = $bug->getEngineer()->getName();
+                        }else{
+                            $engineer = "non affecté";
+                        }
+                        echo "<tr>";
+                        echo "<td><img src='../images/ferme.png' width='30px' height='30px'/></td>";
+                        echo "<td class='colonneid'>".$bug->getId()."</td>";
+                        echo "<td class='colonnedate'>".$bug->getCreated()->format('d.m.Y')."</td>";
+                        echo "<td class='colonnetech'>".$engineer."</td>";
+                        echo "<td class='colonneprod'>";
+                        foreach ($bug->getProducts() as $product) {
+                            echo "- ".$product->getName()." ";
+                        }
+                        echo "</td>";
+                        //echo "<td>".$bug->getDescription()."</td>";
+                        echo "</tr>";
+                    }
+                    ?>
+
+                </table>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div data-role="footer" data-position="fixed">
+        <h4>Pied de page</h4>
+    </div>
+</div>
 </div>
 
-<div id="liste_tickets">
-    <h2>Tickets que vous avez fermés</h2>
-    <?php
-    foreach ($bugs_fermes as $bug) {
-        if ($bug->getEngineer() != null){
-            $engineer = $bug->getEngineer()->getName();
-        }else{
-            $engineer = "non affecté";
-        }
-        echo "<ul>";
-        echo "<li><img src='./images/ferme.png' width='30px' height='30px'/></li>";
-        echo "<li>".$bug->getCreated()->format('d.m.Y')."</li>";
-        echo "<li> Produit(s) : ";
-        foreach ($bug->getProducts() as $product) {
-            echo "- ".$product->getName()." ";
-        }
-        echo "</li>";
-        echo "<li>".$bug->getDescription()."</li>";
-        echo "</ul>";
-    }
-    ?>
-</div>
-<div class="erreur">
-<ul>
-<?php
-foreach($msgErreurs as $erreur)
-	{
- ?>     
-	  <li><?php echo $erreur ?></li>
-<?php	  
-	}
-?>
-</ul>
-</div>
+
+
+    <div data-role="dialog" id="ticket_dialog">
+        <div data-role="header">
+            <h1>Detail du ticket <div id="id_ticket"></div></h1>
+        </div>
+        <div data-role="content">
+            <div id="descri_ticket"></div>
+            <hr/>
+            <div id="solution_ticket"></div>
+        </div>
+        <hr/>
+        <div id="capture_ticket"></div>
+    </div>
+
 
 </body>
 </html>

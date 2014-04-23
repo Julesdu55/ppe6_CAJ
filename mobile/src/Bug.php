@@ -178,5 +178,13 @@ class Bug
     {
         return $this->capture;
     }
-
+    public function jsonSerialize()
+    {
+        return array(
+            'id' => $this->id,
+            'description'=> $this->description,
+            'resume'=> $this->resume,
+            'capture'=> $this->capture,
+        );
+    }
 }
